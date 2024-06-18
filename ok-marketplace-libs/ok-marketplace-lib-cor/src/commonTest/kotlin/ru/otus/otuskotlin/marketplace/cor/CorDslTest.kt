@@ -85,6 +85,8 @@ class CorBaseTest {
                     title = "Лямбда обработчик",
                     description = "Пример использования обработчика в виде лямбды"
                 ) {
+
+                    worker("xxx") {}
                     some += 4
                 }
             }
