@@ -13,3 +13,4 @@ rootProject.name = "otuskotlin-marketplace-202502"
 include("m1l1-first", "m1l2-basic")
 include("m1l3-func")
 include("m1l4-oop")
+include("m2l1-dsl")
