@@ -1,22 +1,16 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    kotlin("jvm")
 }
 
-group = "com.otus.otuskotlin.marketplace"
-version = "0.0.1"
-
-repositories {
-    mavenCentral()
-}
+val coroutinesVersion: String by project
 
 dependencies {
-    testImplementation(kotlin("test"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-}
+    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-tasks.test {
-    useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
+    // Homework Hard
+    implementation("com.squareup.okhttp3:okhttp:4.12.0") // http client
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2") // from string to object
+
+    testImplementation(kotlin("test-junit"))
 }
