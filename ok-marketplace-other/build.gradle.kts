@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.palantir.docker) apply false
 }
 
 group = "ru.otus.otuskotlin.marketplace.tests"
@@ -17,20 +18,11 @@ subprojects {
     version = rootProject.version
 }
 
-ext {
-    val specDir = layout.projectDirectory.dir("../specs")
-    set("spec-v1", specDir.file("specs-ad-v1.yaml").toString())
-    set("spec-v2", specDir.file("specs-ad-v2.yaml").toString())
-}
-
 tasks {
-    arrayOf("build", "clean", "check").forEach {tsk ->
-        create(tsk) {
+    arrayOf("buildImages", "clean").forEach {tsk ->
+        register(tsk) {
             group = "build"
             dependsOn(subprojects.map {  it.getTasksByName(tsk,false)})
         }
-    }
-    create("e2eTests") {
-        dependsOn(project(":ok-marketplace-e2e-be").tasks.getByName("check"))
     }
 }
