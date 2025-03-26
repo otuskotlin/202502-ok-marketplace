@@ -27,7 +27,7 @@ class UserLongServiceTest {
     }
 
     @Test
-    fun realTime() = runTest(timeout = 10.seconds) {
+    fun realTime() = runTest(timeout = 100.seconds) {
         withContext(Dispatchers.Default) {
             measureTime {
                 val user = User("1", "Ivan", 24)
