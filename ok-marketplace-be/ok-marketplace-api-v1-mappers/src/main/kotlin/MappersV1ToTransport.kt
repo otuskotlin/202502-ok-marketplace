@@ -106,19 +106,19 @@ internal fun MkplDealSide.toTransportAd(): DealSide? = when (this) {
     MkplDealSide.NONE -> null
 }
 
-private fun List<MkplError>.toTransportErrors(): List<Error>? = this
+internal fun List<MkplError>.toTransportErrors(): List<Error>? = this
     .map { it.toTransportAd() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun MkplError.toTransportAd() = Error(
+internal fun MkplError.toTransportAd() = Error(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
 
-private fun MkplState.toResult(): ResponseResult? = when (this) {
+internal fun MkplState.toResult(): ResponseResult? = when (this) {
     MkplState.RUNNING -> ResponseResult.SUCCESS
     MkplState.FAILING -> ResponseResult.ERROR
     MkplState.FINISHING -> ResponseResult.SUCCESS
