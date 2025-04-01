@@ -25,6 +25,7 @@ kotlin {
         binaries.library()
         generateTypeScriptDefinitions()
     }
+
     listOf(
         linuxX64(),
         macosArm64(),

@@ -48,6 +48,7 @@ tasks {
 
         doLast {
             val javaHome = Jvm.current().javaHome
+            println("JAVA HOME: $javaHome")
             val javap = javaHome.resolve("bin").walk().firstOrNull { it.name.startsWith("javap") }?.absolutePath ?: error("javap not found")
             val javac = javaHome.resolve("bin").walk().firstOrNull { it.name.startsWith("javac") }?.absolutePath ?: error("javac not found")
             val buildDir = file("build/classes/kotlin/jvm/main")
@@ -60,14 +61,13 @@ tasks {
                 .filter { "META" !in it.absolutePath }
                 .forEach { file ->
                     if (!file.isFile) return@forEach
-                    println("FILE: $file")
 
-                    val output = ByteArrayOutputStream().use {
-                        providers.exec {
+                    val output = ByteArrayOutputStream().use { os ->
+                        exec {
                             commandLine(javap, "-private", "-cp", buildDir.absolutePath, file.absolutePath)
-                            standardOutput = it
-                        }.result.get().assertNormalExitValue()
-                        it.toString()
+                            standardOutput = os
+                        }.assertNormalExitValue()
+                        os.toString()
                     }
 
                     val (qualifiedName, methodInfo) = bodyExtractingRegex.find(output)?.destructured ?: return@forEach
@@ -106,9 +106,9 @@ tasks {
                     val outputFile = tmpDir.resolve(packageName.replace(".", "/")).apply { mkdirs() }.resolve("$className.java").apply { delete() }.apply { createNewFile() }
                     outputFile.writeText(source)
 
-                    providers.exec {
+                    exec {
                         commandLine(javac, "-h", jniHeaderDirectory.absolutePath, outputFile.absolutePath)
-                    }.result.get().assertNormalExitValue()
+                    }.assertNormalExitValue()
                 }
         }
     }
@@ -119,6 +119,7 @@ tasks {
         commandLine("make")
         workingDir(layout.projectDirectory.dir("c-jni"))
     }
+
     withType(KotlinJvmTest::class) {
         dependsOn(makeCLib)
         systemProperty("java.library.path", pathToLib)
