@@ -54,7 +54,8 @@ fun MkplContext.toTransportSearch() = AdSearchResponse(
 fun MkplContext.toTransportOffers() = AdOffersResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    ads = adsResponse.toTransportAd()
+    ad = adResponse.toTransportAd(),
+    ads = adsResponse.toTransportAd(),
 )
 
 fun MkplContext.toTransportInit() = AdInitResponse(
@@ -75,6 +76,7 @@ fun MkplAd.toTransportAd(): AdResponseObject = AdResponseObject(
     adType = adType.toTransportAd(),
     visibility = visibility.toTransportAd(),
     permissions = permissionsClient.toTransportAd(),
+    lock = lock.takeIf { it != MkplAdLock.NONE }?.asString()
 )
 
 internal fun MkplAdId.toTransportAd() = takeIf { it != MkplAdId.NONE }?.asString()
