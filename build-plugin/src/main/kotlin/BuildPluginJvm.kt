@@ -14,6 +14,7 @@ internal class BuildPluginJvm : Plugin<Project> {
 
     override fun apply(project: Project) = with(project) {
         pluginManager.apply("org.jetbrains.kotlin.jvm")
+
         val libs = project.the<LibrariesForLibs>()
         tasks.withType(JavaCompile::class.java) {
             sourceCompatibility = libs.versions.jvm.language.get()

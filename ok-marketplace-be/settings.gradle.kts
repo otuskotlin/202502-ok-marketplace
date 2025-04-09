@@ -52,4 +52,4 @@ include(":ok-marketplace-repo-tests")
 //include(":ok-marketplace-repo-postgres")
 include(":ok-marketplace-repo-pgjvm")
 //include(":ok-marketplace-repo-pgntv")
-
+include(":ok-marketplace-repo-cassandra")
