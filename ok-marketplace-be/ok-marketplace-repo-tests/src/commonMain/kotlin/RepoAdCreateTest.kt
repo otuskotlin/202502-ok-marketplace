@@ -13,6 +13,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotEquals
+import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
+import kotlin.test.*
 
 
 abstract class RepoAdCreateTest {

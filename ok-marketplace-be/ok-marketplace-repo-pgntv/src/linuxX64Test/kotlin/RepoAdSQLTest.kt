@@ -3,7 +3,6 @@ package ru.otus.otuskotlin.marketplace.backend.repo.postgresql
 import ru.otus.otuskotlin.marketplace.backend.repo.tests.*
 import ru.otus.otuskotlin.marketplace.common.repo.IRepoAd
 import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
-import ru.otus.otuskotlin.marketplace.repo.common.IRepoAdInitializable
 import kotlin.test.AfterTest
 
 private fun IRepoAd.clear() {
