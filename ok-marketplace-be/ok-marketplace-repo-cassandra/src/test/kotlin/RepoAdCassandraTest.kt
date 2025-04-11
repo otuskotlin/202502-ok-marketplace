@@ -9,26 +9,20 @@ import org.junit.runner.RunWith
 import org.testcontainers.containers.ComposeContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import ru.otus.otuskotlin.marketplace.backend.repo.tests.*
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
 import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
 import java.io.File
 import java.time.Duration
-import kotlin.test.AfterTest
-
-private fun AdRepoInitialized.clear() {
-    (this.repo as RepoAdCassandra).clear()
-}
 
 @RunWith(Enclosed::class)
 class CassandraTest {
 
     class RepoAdCassandraCreateTest : RepoAdCreateTest() {
+        override val lockNew = MkplAdLock(uuidNew.asString())
         override val repo = AdRepoInitialized(
             initObjects = initObjects,
             repo = repository(uuidNew.asString())
         )
-
-        @AfterTest
-        fun tearDown() = repo.clear()
     }
 
     class RepoAdCassandraReadTest : RepoAdReadTest() {
@@ -36,8 +30,6 @@ class CassandraTest {
             initObjects = initObjects,
             repo = repository()
         )
-        @AfterTest
-        fun tearDown() = repo.clear()
     }
 
     class RepoAdCassandraUpdateTest : RepoAdUpdateTest() {
@@ -45,8 +37,6 @@ class CassandraTest {
             initObjects = initObjects,
             repo = repository(lockNew.asString())
         )
-        @AfterTest
-        fun tearDown() = repo.clear()
     }
 
     class RepoAdCassandraDeleteTest : RepoAdDeleteTest() {
@@ -54,8 +44,6 @@ class CassandraTest {
             initObjects = initObjects,
             repo = repository()
         )
-        @AfterTest
-        fun tearDown() = repo.clear()
     }
 
     class RepoAdCassandraSearchTest : RepoAdSearchTest() {
@@ -63,8 +51,6 @@ class CassandraTest {
             initObjects = initObjects,
             repo = repository()
         )
-        @AfterTest
-        fun tearDown() = repo.clear()
     }
 
     @Ignore
@@ -99,7 +85,7 @@ class CassandraTest {
                 port = container.getServicePort(CS_SERVICE, CS_PORT),
                 randomUuid = uuid?.let { { uuid } } ?: { uuid4().toString() },
                 dc = "dc1",
-            )
+            ).apply { clear() }
         }
 
         @JvmStatic

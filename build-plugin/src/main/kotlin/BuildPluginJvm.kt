@@ -19,6 +19,7 @@ internal class BuildPluginJvm : Plugin<Project> {
         tasks.withType(JavaCompile::class.java) {
             sourceCompatibility = libs.versions.jvm.language.get()
             targetCompatibility = libs.versions.jvm.compiler.get()
+            options.release.set(libs.versions.jvm.compiler.get().toInt())
         }
         tasks.withType(KotlinJvmCompile::class.java).configureEach {
             compilerOptions {

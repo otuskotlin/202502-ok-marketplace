@@ -26,7 +26,7 @@ interface AdCassandraDAO {
     fun delete(id: String, prevLock: String): CompletionStage<AsyncResultSet>
 
     @Query("TRUNCATE ${AdCassandraDTO.TABLE_NAME}")
-    @StatementAttributes(consistencyLevel = "QUORUM")
+    @StatementAttributes(consistencyLevel = "ALL")
     fun deleteAll()
 
     @QueryProvider(providerClass = AdCassandraSearchProvider::class, entityHelpers = [AdCassandraDTO::class])
