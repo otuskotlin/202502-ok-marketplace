@@ -56,8 +56,8 @@ fun List<MkplAd>.toTransportAd(): List<AdResponseObject>? = this
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun MkplAd.toTransportAd(): AdResponseObject = AdResponseObject(
-    id = id.takeIf { it != MkplAdId.NONE }?.asString(),
+fun MkplAd.toTransportAd(): AdResponseObject = AdResponseObject(
+    id = id.toTransportAd(),
     title = title.takeIf { it.isNotBlank() },
     description = description.takeIf { it.isNotBlank() },
     ownerId = ownerId.takeIf { it != MkplUserId.NONE }?.asString(),
@@ -65,6 +65,8 @@ private fun MkplAd.toTransportAd(): AdResponseObject = AdResponseObject(
     visibility = visibility.toTransportAd(),
     permissions = permissionsClient.toTransportAd(),
 )
+
+internal fun MkplAdId.toTransportAd() = takeIf { it != MkplAdId.NONE }?.asString()
 
 private fun Set<MkplAdPermissionClient>.toTransportAd(): Set<AdPermissions>? = this
     .map { it.toTransportAd() }
@@ -80,14 +82,14 @@ private fun MkplAdPermissionClient.toTransportAd() = when (this) {
     MkplAdPermissionClient.DELETE -> AdPermissions.DELETE
 }
 
-private fun MkplVisibility.toTransportAd(): AdVisibility? = when (this) {
+internal fun MkplVisibility.toTransportAd(): AdVisibility? = when (this) {
     MkplVisibility.VISIBLE_PUBLIC -> AdVisibility.PUBLIC
     MkplVisibility.VISIBLE_TO_GROUP -> AdVisibility.REGISTERED_ONLY
     MkplVisibility.VISIBLE_TO_OWNER -> AdVisibility.OWNER_ONLY
     MkplVisibility.NONE -> null
 }
 
-private fun MkplDealSide.toTransportAd(): DealSide? = when (this) {
+internal fun MkplDealSide.toTransportAd(): DealSide? = when (this) {
     MkplDealSide.DEMAND -> DealSide.DEMAND
     MkplDealSide.SUPPLY -> DealSide.SUPPLY
     MkplDealSide.NONE -> null

@@ -1,10 +1,28 @@
 import org.junit.Test
-import ru.otus.otuskotlin.marketplace.api.v1.models.*
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdCreateRequest
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdCreateResponse
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdDebug
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdRequestDebugMode
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdRequestDebugStubs
+import ru.otus.otuskotlin.marketplace.api.v1.models.AdVisibility
+import ru.otus.otuskotlin.marketplace.api.v1.models.DealSide
 import ru.otus.otuskotlin.marketplace.common.MkplContext
-import ru.otus.otuskotlin.marketplace.common.models.*
+import ru.otus.otuskotlin.marketplace.common.models.MkplAd
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdId
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
+import ru.otus.otuskotlin.marketplace.common.models.MkplCommand
+import ru.otus.otuskotlin.marketplace.common.models.MkplDealSide
+import ru.otus.otuskotlin.marketplace.common.models.MkplError
+import ru.otus.otuskotlin.marketplace.common.models.MkplRequestId
+import ru.otus.otuskotlin.marketplace.common.models.MkplState
+import ru.otus.otuskotlin.marketplace.common.models.MkplUserId
+import ru.otus.otuskotlin.marketplace.common.models.MkplVisibility
+import ru.otus.otuskotlin.marketplace.common.models.MkplWorkMode
 import ru.otus.otuskotlin.marketplace.common.stubs.MkplStubs
 import ru.otus.otuskotlin.marketplace.mappers.v1.fromTransport
 import ru.otus.otuskotlin.marketplace.mappers.v1.toTransportAd
+import ru.otus.otuskotlin.marketplace.mappers.v1.toTransportCreateAd
+import ru.otus.otuskotlin.marketplace.stubs.MkplAdStub
 import kotlin.test.assertEquals
 
 class MapperTest {
@@ -15,22 +33,21 @@ class MapperTest {
                 mode = AdRequestDebugMode.STUB,
                 stub = AdRequestDebugStubs.SUCCESS,
             ),
-            ad = AdCreateObject(
-                title = "title",
-                description = "desc",
-                adType = DealSide.DEMAND,
-                visibility = AdVisibility.PUBLIC,
-            ),
+            ad = MkplAdStub.get().toTransportCreateAd()
         )
+        val expected = MkplAdStub.prepareResult {
+            id = MkplAdId.NONE
+            ownerId = MkplUserId.NONE
+            lock = MkplAdLock.NONE
+            permissionsClient.clear()
+        }
 
         val context = MkplContext()
         context.fromTransport(req)
 
         assertEquals(MkplStubs.SUCCESS, context.stubCase)
         assertEquals(MkplWorkMode.STUB, context.workMode)
-        assertEquals("title", context.adRequest.title)
-        assertEquals(MkplVisibility.VISIBLE_PUBLIC, context.adRequest.visibility)
-        assertEquals(MkplDealSide.DEMAND, context.adRequest.adType)
+        assertEquals(expected, context.adRequest)
     }
 
     @Test
@@ -38,12 +55,7 @@ class MapperTest {
         val context = MkplContext(
             requestId = MkplRequestId("1234"),
             command = MkplCommand.CREATE,
-            adResponse = MkplAd(
-                title = "title",
-                description = "desc",
-                adType = MkplDealSide.DEMAND,
-                visibility = MkplVisibility.VISIBLE_PUBLIC,
-            ),
+            adResponse = MkplAdStub.get(),
             errors = mutableListOf(
                 MkplError(
                     code = "err",
@@ -57,10 +69,7 @@ class MapperTest {
 
         val req = context.toTransportAd() as AdCreateResponse
 
-        assertEquals("title", req.ad?.title)
-        assertEquals("desc", req.ad?.description)
-        assertEquals(AdVisibility.PUBLIC, req.ad?.visibility)
-        assertEquals(DealSide.DEMAND, req.ad?.adType)
+        assertEquals(req.ad, MkplAdStub.get().toTransportAd())
         assertEquals(1, req.errors?.size)
         assertEquals("err", req.errors?.firstOrNull()?.code)
         assertEquals("request", req.errors?.firstOrNull()?.group)

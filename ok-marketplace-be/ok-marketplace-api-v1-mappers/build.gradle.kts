@@ -11,4 +11,5 @@ dependencies {
     implementation(projects.okMarketplaceCommon)
 
     testImplementation(kotlin("test-junit"))
+    testImplementation(projects.okMarketplaceStubs)
 }
