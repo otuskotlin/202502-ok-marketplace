@@ -46,3 +46,13 @@ Marketplace -- это площадка, на которой пользовате
    5. m2l5 - Интероперабельность Kotlin с другими языками
        1. [m2l5-1-interop](lessons/m2l5-1-interop) - Интероперабельность Kotlin Native с C
        2. [m2l5-2-jni](lessons/m2l5-2-jni) - Интероперабельность Kotlin JVM с C
+
+## Проектные модули
+
+### Транспортные модели, API
+
+1. [specs](specs) - описание API в форме OpenAPI-спецификаций
+2. [ok-marketplace-api-v1-jackson](ok-marketplace-be/ok-marketplace-api-v1-jackson) - Генерация первой версии
+   транспортных модеелй с Jackson
+3. [ok-marketplace-api-v2-kmp](ok-marketplace-be/ok-marketplace-api-v2-kmp) - Генерация второй версии транспортных
+   моделей с KMP
