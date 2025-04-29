@@ -46,7 +46,7 @@ Marketplace -- это площадка, на которой пользовате
    5. m2l5 - Интероперабельность Kotlin с другими языками
        1. [m2l5-1-interop](lessons/m2l5-1-interop) - Интероперабельность Kotlin Native с C
        2. [m2l5-2-jni](lessons/m2l5-2-jni) - Интероперабельность Kotlin JVM с C
-   6. m4l3-testing - Тестирование проекта
+   6. [m4l3-testing](ok-marketplace-tests) - Тестирование проекта
 
 ## Проектные модули
 
