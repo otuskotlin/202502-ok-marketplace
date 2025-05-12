@@ -13,6 +13,7 @@ import java.time.Instant
 class MpLogWrapperLogback(
     /**
      * Экземпляр логера (Logback)
+     * logger.info("Hello {}, {}, {}", "DATA1", 123, 12.345)
      */
     val logger: Logger,
     /**

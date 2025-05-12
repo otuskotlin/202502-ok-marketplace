@@ -16,43 +16,43 @@ private val clazz: KClass<*> = ::main::class
 suspend fun main() {
     val provider = MpLoggerProvider { mpLoggerLogback(it) }
     val logger: IMpLogWrapper = provider.logger(clazz.simpleName ?: "(unknown)")
-        while (true) {
-            val ctx = MkplContext(
-                command = MkplCommand.CREATE,
-                state = MkplState.RUNNING,
-                workMode = MkplWorkMode.STUB,
-                timeStart = Clock.System.now(),
-                requestId = MkplRequestId("tmp-request"),
-                adRequest = MkplAd(
-                    title = "tmp title",
-                    description = "tmp desc",
-                    adType = MkplDealSide.DEMAND,
-                    visibility = MkplVisibility.VISIBLE_PUBLIC,
+    while (true) {
+        val ctx = MkplContext(
+            command = MkplCommand.CREATE,
+            state = MkplState.RUNNING,
+            workMode = MkplWorkMode.STUB,
+            timeStart = Clock.System.now(),
+            requestId = MkplRequestId("tmp-request"),
+            adRequest = MkplAd(
+                title = "tmp title",
+                description = "tmp desc",
+                adType = MkplDealSide.DEMAND,
+                visibility = MkplVisibility.VISIBLE_PUBLIC,
+            ),
+            adResponse = MkplAd(
+                title = "tmp title",
+                description = "tmp desc",
+                adType = MkplDealSide.DEMAND,
+                visibility = MkplVisibility.VISIBLE_PUBLIC,
+                ownerId = MkplUserId("tmp-user-id"),
+                lock = MkplAdLock("tmp-lock"),
+                permissionsClient = mutableSetOf(MkplAdPermissionClient.READ, MkplAdPermissionClient.UPDATE),
+            ),
+            errors = mutableListOf(
+                MkplError(
+                    code = "tmp-error",
+                    group = "tmp",
+                    field = "none",
+                    message = "tmp error message",
+                    level = LogLevel.INFO,
+                    exception = Exception("some exception"),
                 ),
-                adResponse = MkplAd(
-                    title = "tmp title",
-                    description = "tmp desc",
-                    adType = MkplDealSide.DEMAND,
-                    visibility = MkplVisibility.VISIBLE_PUBLIC,
-                    ownerId = MkplUserId("tmp-user-id"),
-                    lock = MkplAdLock("tmp-lock"),
-                    permissionsClient = mutableSetOf(MkplAdPermissionClient.READ, MkplAdPermissionClient.UPDATE),
-                ),
-                errors = mutableListOf(
-                    MkplError(
-                        code = "tmp-error",
-                        group = "tmp",
-                        field = "none",
-                        message = "tmp error message",
-                        level = LogLevel.INFO,
-                        exception = Exception("some exception"),
-                    ),
-                )
             )
-            logger.info(
-                msg = "tmp log string",
-                data = ctx.toLog("tmp-app-logg"),
-            )
-            delay(500)
-        }
+        )
+        logger.info(
+            msg = "tmp log string",
+            data = ctx.toLog("tmp-app-logg"),
+        )
+        delay(500)
+    }
 }
