@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform")
-    // Только для lombock!!
+    // Только для lombok!!
     java
 }
 
