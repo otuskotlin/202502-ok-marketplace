@@ -1,5 +1,6 @@
 package ru.otus.otuskotlin.marketplace.api.v2
 
+import kotlinx.serialization.encodeToString
 import ru.otus.otuskotlin.marketplace.api.v2.models.AdCreateResponse
 import ru.otus.otuskotlin.marketplace.api.v2.models.AdResponseObject
 import ru.otus.otuskotlin.marketplace.api.v2.models.AdVisibility
