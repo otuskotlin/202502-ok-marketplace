@@ -2,7 +2,7 @@
 kotlin = "2.1.0"
 
 kotlinx-datetime = "0.6.2"
-kotlinx-serialization = "1.8.1"
+kotlinx-serialization = "1.6.3"
 coroutines = "1.9.0"
 
 binaryCompabilityValidator = "0.13.2"
@@ -66,6 +66,7 @@ ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 ktor-server-yaml = { module = "io.ktor:ktor-server-config-yaml", version.ref = "ktor" }
 ktor-server-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-calllogging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-websocket = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
 ktor-server-test = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 
 # Spring
