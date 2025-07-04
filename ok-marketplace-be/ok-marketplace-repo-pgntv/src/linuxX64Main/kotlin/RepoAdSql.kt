@@ -37,8 +37,8 @@ class RepoAdSql(
     private suspend fun saveElement(saveAd: MkplAd): IDbAdResponse {
         val sql = """
                 INSERT INTO $dbName (
-                  ${SqlFields.ID.quoted()}, 
-                  ${SqlFields.TITLE.quoted()}, 
+                  ${SqlFields.ID.quoted()},
+                  ${SqlFields.TITLE.quoted()},
                   ${SqlFields.DESCRIPTION.quoted()},
                   ${SqlFields.VISIBILITY.quoted()},
                   ${SqlFields.AD_TYPE.quoted()},
@@ -46,13 +46,13 @@ class RepoAdSql(
                   ${SqlFields.OWNER_ID.quoted()},
                   ${SqlFields.PRODUCT_ID.quoted()}
                 ) VALUES (
-                  :${SqlFields.ID}, 
-                  :${SqlFields.TITLE}, 
-                  :${SqlFields.DESCRIPTION}, 
-                  :${SqlFields.VISIBILITY}::${SqlFields.VISIBILITY_TYPE}, 
-                  :${SqlFields.AD_TYPE}::${SqlFields.AD_TYPE_TYPE}, 
-                  :${SqlFields.LOCK}, 
-                  :${SqlFields.OWNER_ID}, 
+                  :${SqlFields.ID},
+                  :${SqlFields.TITLE},
+                  :${SqlFields.DESCRIPTION},
+                  :${SqlFields.VISIBILITY}::${SqlFields.VISIBILITY_TYPE},
+                  :${SqlFields.AD_TYPE}::${SqlFields.AD_TYPE_TYPE},
+                  :${SqlFields.LOCK},
+                  :${SqlFields.OWNER_ID},
                   :${SqlFields.PRODUCT_ID}
                 )
                 RETURNING ${SqlFields.allFields.joinToString()}
@@ -106,8 +106,8 @@ class RepoAdSql(
                 RETURNING ${SqlFields.allFields.joinToString()}
             ),
             select_obj AS (
-                SELECT ${SqlFields.allFields.joinToString()} FROM $dbName 
-                WHERE ${SqlFields.ID.quoted()} = :${SqlFields.ID} 
+                SELECT ${SqlFields.allFields.joinToString()} FROM $dbName
+                WHERE ${SqlFields.ID.quoted()} = :${SqlFields.ID}
             )
             (SELECT * FROM update_obj UNION ALL SELECT * FROM select_obj) LIMIT 1
         """.trimIndent()
@@ -133,8 +133,8 @@ class RepoAdSql(
                 AND a.${SqlFields.LOCK.quoted()} = :${SqlFields.LOCK_OLD}
                 RETURNING '${SqlFields.DELETE_OK}'
             )
-            SELECT ${SqlFields.allFields.joinToString()}, (SELECT * FROM delete_obj) as flag FROM $dbName 
-            WHERE ${SqlFields.ID.quoted()} = :${SqlFields.ID} 
+            SELECT ${SqlFields.allFields.joinToString()}, (SELECT * FROM delete_obj) as flag FROM $dbName
+            WHERE ${SqlFields.ID.quoted()} = :${SqlFields.ID}
         """.trimIndent()
         val res = driver.execute(
             sql = sql,
@@ -176,7 +176,7 @@ class RepoAdSql(
 
     fun clear(): Unit = runBlocking {
         val sql = """
-                DELETE FROM $dbName 
+                DELETE FROM $dbName
             """.trimIndent()
         driver.execute(sql = sql)
     }

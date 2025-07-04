@@ -17,9 +17,6 @@ buildscript {
     }
 }
 
-group = "ru.otus.otuskotlin.marketplace.migration"
-version = "0.1.0"
-
 docker {
     name = "${project.name}:${project.version}"
 //    tag("latestTag","latest")

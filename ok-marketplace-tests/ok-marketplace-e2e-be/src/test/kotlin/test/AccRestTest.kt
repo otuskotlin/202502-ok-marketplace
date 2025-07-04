@@ -3,7 +3,6 @@ package ru.otus.otuskotlin.marketplace.e2e.be.test
 import io.kotest.core.annotation.Ignored
 import ru.otus.otuskotlin.marketplace.blackbox.fixture.docker.DockerCompose
 import ru.otus.otuskotlin.marketplace.e2e.be.docker.KtorJvmPGDockerCompose
-import ru.otus.otuskotlin.marketplace.e2e.be.docker.KtorLinuxPGDockerCompose
 import ru.otus.otuskotlin.marketplace.e2e.be.docker.SpringDockerCompose
 import ru.otus.otuskotlin.marketplace.e2e.be.docker.WiremockDockerCompose
 import ru.otus.otuskotlin.marketplace.e2e.be.fixture.BaseFunSpec
@@ -33,4 +32,4 @@ class AccRestWiremockTest : AccRestTestBaseFull(WiremockDockerCompose)
 
 class AccRestSpringTest : AccRestTestBaseFull(SpringDockerCompose, debug = TestDebug.PROD)
 class AccRestKtorPgJvmTest : AccRestTestBaseFull(KtorJvmPGDockerCompose, debug = TestDebug.PROD)
-class AccRestKtorPgLinuxTest : AccRestTestBaseShort(KtorLinuxPGDockerCompose, debug = TestDebug.PROD)
+//class AccRestKtorPgLinuxTest : AccRestTestBaseShort(KtorLinuxPGDockerCompose, debug = TestDebug.PROD)

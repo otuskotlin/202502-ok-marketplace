@@ -149,7 +149,7 @@ kotlin {
 
         linuxX64Main {
             dependencies {
-                implementation(projects.okMarketplaceRepoPgntv)
+//                implementation(projects.okMarketplaceRepoPgntv)
             }
         }
     }

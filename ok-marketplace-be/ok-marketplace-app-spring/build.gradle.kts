@@ -75,9 +75,9 @@ tasks.bootBuildImage {
     environment.set(mapOf("BP_HEALTH_CHECKER_ENABLED" to "true"))
     buildpacks.set(
         listOf(
-            "gcr.io/paketo-buildpacks/adoptium",
+            "docker.io/paketobuildpacks/adoptium",
             "urn:cnb:builder:paketo-buildpacks/java",
-            "gcr.io/paketo-buildpacks/health-checker:latest"
+            "docker.io/paketobuildpacks/health-checker:latest"
         )
     )
 
