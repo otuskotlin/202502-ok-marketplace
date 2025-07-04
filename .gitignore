@@ -1,12 +1,16 @@
-**/.gradle/
-**/.kotlin/
-/kotlin-js-store/
-build/
+.gradle/
+.kotlin/
+**/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/**/build/
 
+**/*.hprof
+
+**/.kotlin/
+
 /.idea/
 /.gigaide/
+/kotlin-js-store/
 
+*.hprof
 **/*.log
-**/*.hprof
