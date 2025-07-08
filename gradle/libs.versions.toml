@@ -26,10 +26,10 @@ cassandra = "4.17.0"
 muschko = "9.4.0"
 
 #Testing
-testcontainers = "1.21.1"
+testcontainers = "1.21.3"
 
 # BASE
-jvm-compiler = "17"
+jvm-compiler = "21"
 jvm-language = "21"
 
 [libraries]
