@@ -1,14 +1,23 @@
 package ru.otus.otuskotlin.marketplace.backend.repo.tests
 
-import ru.otus.otuskotlin.marketplace.common.models.*
-import ru.otus.otuskotlin.marketplace.common.repo.*
+import ru.otus.otuskotlin.marketplace.common.models.MkplAd
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdId
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
+import ru.otus.otuskotlin.marketplace.common.models.MkplDealSide
+import ru.otus.otuskotlin.marketplace.common.models.MkplUserId
+import ru.otus.otuskotlin.marketplace.common.models.MkplVisibility
+import ru.otus.otuskotlin.marketplace.common.repo.DbAdRequest
+import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseErr
+import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseErrWithData
+import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseOk
+import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 
 abstract class RepoAdUpdateTest {
-    abstract val repo: IRepoAd
+    abstract val repo: AdRepoInitialized
     protected open val updateSucc = initObjects[0]
     protected open val updateConc = initObjects[1]
     protected val updateIdNotFound = MkplAdId("ad-repo-update-not-found")

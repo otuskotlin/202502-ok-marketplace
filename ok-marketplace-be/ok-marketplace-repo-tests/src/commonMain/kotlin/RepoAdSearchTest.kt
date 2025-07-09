@@ -4,21 +4,27 @@ import ru.otus.otuskotlin.marketplace.common.models.MkplAd
 import ru.otus.otuskotlin.marketplace.common.models.MkplDealSide
 import ru.otus.otuskotlin.marketplace.common.models.MkplUserId
 import ru.otus.otuskotlin.marketplace.common.repo.DbAdFilterRequest
+import ru.otus.otuskotlin.marketplace.common.repo.DbAdsResponseErr
 import ru.otus.otuskotlin.marketplace.common.repo.DbAdsResponseOk
-import ru.otus.otuskotlin.marketplace.common.repo.IRepoAd
+import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
+import kotlin.test.fail
 
 
 abstract class RepoAdSearchTest {
-    abstract val repo: IRepoAd
+    abstract val repo: AdRepoInitialized
 
     protected open val initializedObjects: List<MkplAd> = initObjects
 
     @Test
     fun searchOwner() = runRepoTest {
         val result = repo.searchAd(DbAdFilterRequest(ownerId = searchOwnerId))
+        if (result is DbAdsResponseErr) {
+            result.errors.forEach { it.exception?.printStackTrace() }
+            fail()
+        }
         assertIs<DbAdsResponseOk>(result)
         val expected = listOf(initializedObjects[1], initializedObjects[3]).sortedBy { it.id.asString() }
         assertEquals(expected, result.data.sortedBy { it.id.asString() })
@@ -27,12 +33,16 @@ abstract class RepoAdSearchTest {
     @Test
     fun searchDealSide() = runRepoTest {
         val result = repo.searchAd(DbAdFilterRequest(dealSide = MkplDealSide.SUPPLY))
+        if (result is DbAdsResponseErr) {
+            result.errors.forEach { it.exception?.printStackTrace() }
+            fail()
+        }
         assertIs<DbAdsResponseOk>(result)
         val expected = listOf(initializedObjects[2], initializedObjects[4]).sortedBy { it.id.asString() }
         assertEquals(expected, result.data.sortedBy { it.id.asString() })
     }
 
-    companion object: BaseInitAds("search") {
+    companion object : BaseInitAds("search") {
 
         val searchOwnerId = MkplUserId("owner-124")
         override val initObjects: List<MkplAd> = listOf(
