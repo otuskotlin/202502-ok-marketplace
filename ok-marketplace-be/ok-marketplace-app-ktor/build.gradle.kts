@@ -141,6 +141,7 @@ kotlin {
                 implementation(projects.okMarketplaceRepoPgjvm)
                 implementation(libs.testcontainers.postgres)
                 implementation(libs.testcontainers.cassandra)
+                implementation(libs.testcontainers.core)
             }
         }
 

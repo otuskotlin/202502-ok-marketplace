@@ -36,3 +36,10 @@ marketplace:
       port: "$MKPLADS_PORT:5432"
       user: "$MKPLADS_USER:postgres"
       password: "$MKPLADS_PASS:marketplace-pass"
+
+    cassandra:
+      hosts: localhost
+      keyspace: test_keyspace
+      pass: cassandra
+      port: 9042
+      user: cassandra
