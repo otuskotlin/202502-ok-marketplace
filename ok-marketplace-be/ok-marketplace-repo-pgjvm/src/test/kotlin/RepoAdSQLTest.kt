@@ -9,37 +9,37 @@ import org.testcontainers.containers.ComposeContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import ru.otus.otuskotlin.marketplace.backend.repo.tests.*
 import ru.otus.otuskotlin.marketplace.common.models.MkplAd
+import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
 import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
-import ru.otus.otuskotlin.marketplace.repo.common.IRepoAdInitializable
 import java.io.File
 import java.time.Duration
-import kotlin.test.AfterTest
 import kotlin.test.Ignore
 
 
-private fun IRepoAdInitializable.clear() {
-    val pgRepo = (this as AdRepoInitialized).repo as RepoAdSql
-    pgRepo.clear()
-}
+//private fun IRepoAdInitializable.clear() {
+//    val pgRepo = (this as AdRepoInitialized).repo as RepoAdSql
+//    pgRepo.clear()
+//}
 
 @RunWith(Enclosed::class)
 class RepoAdSQLTest {
 
     class RepoAdSQLCreateTest : RepoAdCreateTest() {
+        override val lockNew: MkplAdLock = MkplAdLock(uuidNew.asString())
         override val repo = repoUnderTestContainer(
             initObjects,
             randomUuid = { uuidNew.asString() },
         )
-
-        @AfterTest
-        fun tearDown() = repo.clear()
+//
+//        @AfterTest
+//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLReadTest : RepoAdReadTest() {
         override val repo = repoUnderTestContainer(initObjects)
-
-        @AfterTest
-        fun tearDown() = repo.clear()
+//
+//        @AfterTest
+//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLUpdateTest : RepoAdUpdateTest() {
@@ -47,23 +47,23 @@ class RepoAdSQLTest {
             initObjects,
             randomUuid = { lockNew.asString() },
         )
-
-        @AfterTest
-        fun tearDown() = repo.clear()
+//
+//        @AfterTest
+//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLDeleteTest : RepoAdDeleteTest() {
         override val repo = repoUnderTestContainer(initObjects)
-
-        @AfterTest
-        fun tearDown() = repo.clear()
+//
+//        @AfterTest
+//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLSearchTest : RepoAdSearchTest() {
         override val repo = repoUnderTestContainer(initObjects)
-
-        @AfterTest
-        fun tearDown() = repo.clear()
+//
+//        @AfterTest
+//        fun tearDown() = repo.clear()
     }
 
     @Ignore
@@ -100,7 +100,7 @@ class RepoAdSQLTest {
         fun repoUnderTestContainer(
             initObjects: Collection<MkplAd> = emptyList(),
             randomUuid: () -> String = { uuid4().toString() },
-        ): IRepoAdInitializable = AdRepoInitialized(
+        ) = AdRepoInitialized(
             repo = RepoAdSql(
                 SqlProperties(
                     host = HOST,
@@ -109,7 +109,7 @@ class RepoAdSQLTest {
                     port = PORT,
                 ),
                 randomUuid = randomUuid
-            ),
+            ).apply {clear()},
             initObjects = initObjects,
         )
 
