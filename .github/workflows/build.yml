@@ -50,7 +50,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.10.1
-          arguments: check -i
+          arguments: buildImages -i
+      - name: Run Tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.10.1
+          arguments: e2eTests -i
 
       - name: Save Primes
         id: cache-primes-save

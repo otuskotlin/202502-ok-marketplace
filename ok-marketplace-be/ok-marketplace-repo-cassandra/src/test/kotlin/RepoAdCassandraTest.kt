@@ -19,10 +19,9 @@ import kotlin.test.AfterTest
 class CassandraTest {
 
     class RepoAdCassandraCreateTest : RepoAdCreateTest() {
-        override val lockNew = MkplAdLock(uuidNew.asString())
         override val repo = AdRepoInitialized(
             initObjects = initObjects,
-            repo = repository(uuidNew.asString())
+            repo = repository(lockNew.asString())
         )
     }
 

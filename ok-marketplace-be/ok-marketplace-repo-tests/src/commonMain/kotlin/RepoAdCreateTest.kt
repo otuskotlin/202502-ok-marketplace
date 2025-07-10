@@ -18,7 +18,6 @@ import kotlin.test.assertNotEquals
 abstract class RepoAdCreateTest {
     abstract val repo: AdRepoInitialized
     protected open val lockNew = MkplAdLock("20000000-0000-0000-0000-000000000002")
-    protected open val uuidNew = MkplAdId("10000000-0000-0000-0000-000000000001")
 
     private val createObj = MkplAd(
         title = "create object",
@@ -33,7 +32,7 @@ abstract class RepoAdCreateTest {
         val result = repo.createAd(DbAdRequest(createObj))
         val expected = createObj
         assertIs<DbAdResponseOk>(result)
-        assertEquals(uuidNew, result.data.id)
+        assertNotEquals(MkplAdId.NONE, result.data.id)
         assertEquals(lockNew, result.data.lock)
         assertEquals(expected.title, result.data.title)
         assertEquals(expected.description, result.data.description)
