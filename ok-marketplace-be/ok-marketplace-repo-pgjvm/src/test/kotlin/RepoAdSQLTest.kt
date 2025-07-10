@@ -25,21 +25,14 @@ import kotlin.test.Ignore
 class RepoAdSQLTest {
 
     class RepoAdSQLCreateTest : RepoAdCreateTest() {
-        override val lockNew: MkplAdLock = MkplAdLock(uuidNew.asString())
         override val repo = repoUnderTestContainer(
             initObjects,
-            randomUuid = { uuidNew.asString() },
+            randomUuid = { lockNew.asString() },
         )
-//
-//        @AfterTest
-//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLReadTest : RepoAdReadTest() {
         override val repo = repoUnderTestContainer(initObjects)
-//
-//        @AfterTest
-//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLUpdateTest : RepoAdUpdateTest() {
@@ -47,23 +40,14 @@ class RepoAdSQLTest {
             initObjects,
             randomUuid = { lockNew.asString() },
         )
-//
-//        @AfterTest
-//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLDeleteTest : RepoAdDeleteTest() {
         override val repo = repoUnderTestContainer(initObjects)
-//
-//        @AfterTest
-//        fun tearDown() = repo.clear()
     }
 
     class RepoAdSQLSearchTest : RepoAdSearchTest() {
         override val repo = repoUnderTestContainer(initObjects)
-//
-//        @AfterTest
-//        fun tearDown() = repo.clear()
     }
 
     @Ignore
