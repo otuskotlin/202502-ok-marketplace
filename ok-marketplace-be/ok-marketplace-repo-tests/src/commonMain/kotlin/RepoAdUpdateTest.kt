@@ -1,16 +1,8 @@
 package ru.otus.otuskotlin.marketplace.backend.repo.tests
 
-import ru.otus.otuskotlin.marketplace.common.models.MkplAd
-import ru.otus.otuskotlin.marketplace.common.models.MkplAdId
-import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
-import ru.otus.otuskotlin.marketplace.common.models.MkplDealSide
-import ru.otus.otuskotlin.marketplace.common.models.MkplUserId
-import ru.otus.otuskotlin.marketplace.common.models.MkplVisibility
-import ru.otus.otuskotlin.marketplace.common.repo.DbAdRequest
-import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseErr
-import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseErrWithData
-import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseOk
 import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
+import ru.otus.otuskotlin.marketplace.common.models.*
+import ru.otus.otuskotlin.marketplace.common.repo.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs

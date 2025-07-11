@@ -42,7 +42,7 @@ abstract class RepoAdSearchTest {
         assertEquals(expected, result.data.sortedBy { it.id.asString() })
     }
 
-    companion object : BaseInitAds("search") {
+    companion object: BaseInitAds("search") {
 
         val searchOwnerId = MkplUserId("owner-124")
         override val initObjects: List<MkplAd> = listOf(

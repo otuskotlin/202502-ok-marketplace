@@ -1,11 +1,6 @@
 package ru.otus.otuskotlin.marketplace.backend.repo.tests
 
-import ru.otus.otuskotlin.marketplace.common.models.MkplAd
-import ru.otus.otuskotlin.marketplace.common.models.MkplAdId
-import ru.otus.otuskotlin.marketplace.common.models.MkplAdLock
-import ru.otus.otuskotlin.marketplace.common.models.MkplDealSide
-import ru.otus.otuskotlin.marketplace.common.models.MkplUserId
-import ru.otus.otuskotlin.marketplace.common.models.MkplVisibility
+import ru.otus.otuskotlin.marketplace.common.models.*
 import ru.otus.otuskotlin.marketplace.common.repo.DbAdRequest
 import ru.otus.otuskotlin.marketplace.common.repo.DbAdResponseOk
 import ru.otus.otuskotlin.marketplace.repo.common.AdRepoInitialized
