@@ -1,35 +1,37 @@
 plugins {
     id("build-kmp")
-    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
     sourceSets {
+        all { languageSettings.optIn("kotlin.RequiresOptIn") }
+
         commonMain {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
-                implementation(libs.kotlinx.serialization.core)
-                implementation(libs.kotlinx.serialization.json)
+                implementation(kotlin("stdlib-common"))
+
+                implementation(libs.mkpl.cor)
                 implementation(libs.coroutines.core)
-                api(libs.mkpl.state.common)
+
+                implementation(projects.okMarketplaceStatesCommon)
             }
         }
         commonTest {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+
+                api(libs.coroutines.test)
             }
         }
-
+        jvmMain {
+            dependencies {
+                implementation(kotlin("stdlib-jdk8"))
+            }
+        }
         jvmTest {
             dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-        nativeTest {
-            dependencies {
-                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
             }
         }
     }
